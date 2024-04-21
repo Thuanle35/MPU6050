@@ -16,28 +16,8 @@ int16_t read_sensor(unsigned char sensor) {
 	return data;
 }
 
-void Init_6050(void){
-	// register 25->28, 56, 107
-	// sample_rate 500Hz
-	wiringPiI2CWriteReg8(mpu,Sample_rate,15);
-	// Khong su dung nguon xung ngoai, tat DLFP
-	wiringPiI2CWriteReg8(mpu,Config,3);
-	// gyro FS: +- 500o/s
-	wiringPiI2CWriteReg8(mpu,Gyro_config,0x08);
-	// acc FS: +- 8g
-	wiringPiI2CWriteReg8(mpu,Acc_config,0x10);
-	// mo interrupt cua data ready
-	wiringPiI2CWriteReg8(mpu,Interrupt,1);
-	// chon nguon xung GYro X
-	wiringPiI2CWriteReg8(mpu,PWR_Managment,0x01);
-	
-}
-
 int main(void)
 {
-	
-	mpu = wiringPiI2CSetup(0x68);
-	
 	// thiet lap che do cho MPU
 	Init_6050();
 	while(1){
